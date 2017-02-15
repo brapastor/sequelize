@@ -40,10 +40,29 @@ var Article = connection.define('article',
     // defaultValue:'comming soon...'
   }
 },
+{
+  hooks:{
+      beforeValidate: function() {
+      console.log('beforeValidate');
+      },
+      afterValidate: function(){
+        console.log('afterValidate');
 
+      },
+      beforeCreate: function(){
+        console.log('beforeCreate');
+      },
+      afterCreate: function(res){
+        console.log('afterCreate:Creado articulo con slug', res.dataValues.slug);
+
+      }
+    }
+  },
 {
     timestamps:true
 }
+
+
 );
 
 connection
@@ -55,10 +74,9 @@ connection
   //LLENAR DATOS
   Article.create({
     title:'Some title',
-    slug: 'some-slugs',
+    slug: 'some-slusg',
     body:'Someos la furi'
   });
-
 
   //BUSCAR DATOS SEGUN ID
   // Article.findById(1).then(function(article){
@@ -72,5 +90,5 @@ connection
 
 
 }).catch(function(error){
-  console.log(error);
+  console.log('err',err);
 });
